@@ -15,6 +15,7 @@ import * as qna from "@tensorflow-models/qna";
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 import Loader from "react-loader-spinner";
 import { Fragment } from "react";
+import About from "./Components/About";
 
 function App() {
   const [model, setModel] = useState(null);
@@ -88,6 +89,7 @@ function App() {
                 <Route path="/question" exact component={Question} />
                 <Route path="/channel" exact component={Channel} />
                 <Route path="/result" exact component={Result} />
+                <Route path="/about" exact component={About} />
                 <Route path="/model" exact component={Model} />
               </Switch>
             </>

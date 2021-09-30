@@ -1,5 +1,5 @@
 import React, { useRef, useEffect, useState, useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import "./Question.css";
 
 import * as tf from "@tensorflow/tfjs";
@@ -10,16 +10,21 @@ import { Fragment } from "react";
 import ModelContext from "../store/model-context";
 
 const Question = () => {
+  const history = useHistory();
   const questionRef = useRef(null);
 
   const ctx = useContext(ModelContext);
 
   const setQuestionHandler = (e) => {
-    ctx.setQuestion(questionRef.current.value);
-    console.log(ctx.question);
+    ctx.setQuestion((prevState) => {
+      return questionRef.current.value;
+    });
+    history.push("/channel");
+    // ctx.setQuestion(questionRef.current.value);
   };
 
   const onClick = (e) => {
+    e.preventDefault();
     setQuestionHandler();
     ctx.answerQuestion();
   };

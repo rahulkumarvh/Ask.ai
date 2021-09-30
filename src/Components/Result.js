@@ -1,12 +1,15 @@
 import React, { useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import ModelContext from "../store/model-context";
 import "./Result.css";
 
 const Result = () => {
+  const history = useHistory();
+
   const ctx = useContext(ModelContext);
   const resultHandler = (e) => {
     e.preventDefault();
+    history.push("/");
     console.log(ctx.passage);
     console.log(ctx.question);
   };
@@ -33,6 +36,7 @@ const Result = () => {
                       <button
                         class="bg-black text-white active:bg-indigo-600 text-xs font-bold uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                         type="button"
+                        to="/para"
                         onClick={resultHandler}
                       >
                         Try another
@@ -49,7 +53,7 @@ const Result = () => {
                           Answer
                         </th>
                         <th class="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-center">
-                          Accuracy
+                          Score
                         </th>
                       </tr>
                     </thead>

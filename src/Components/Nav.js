@@ -18,7 +18,7 @@ const Nav = () => {
           <span className="bg-white h-1 w-32 "></span>
 
           <Link
-            to="/app"
+            to="/para"
             className="border-b-2 border-transparent  hover:border-red-500 mx-1.5 sm:mx-6"
             activeClassName="active"
           >

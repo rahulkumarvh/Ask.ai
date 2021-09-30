@@ -6,6 +6,7 @@ import Home from "./Components/Home";
 import Nav from "./Components/Nav";
 import Para from "./Components/Para";
 import Question from "./Components/Question";
+import Channel from "./Components/Channel";
 import Result from "./Components/Result";
 import ModelContext from "./store/model-context";
 
@@ -20,6 +21,8 @@ function App() {
   const [passage, setPassage] = useState("");
   const [question, setQuestion] = useState("");
   const [answer, setAnswer] = useState();
+  const [q, setQ] = useState(question);
+  const [p, setP] = useState(passage);
 
   const loadModel = async () => {
     const loadedModel = await qna.load();
@@ -30,8 +33,7 @@ function App() {
   const answerQuestion = async (e) => {
     if (model !== null) {
       console.log("Question submitted.");
-      const p = passage;
-      const q = question;
+
       const answers = await model.findAnswers(question, passage);
       setAnswer(answers);
       console.log(answers);
@@ -56,17 +58,40 @@ function App() {
           answer: answer,
           setAnswer: setAnswer,
           answerQuestion: answerQuestion,
+          p: p,
+          setP: setP,
+          q: q,
+          setQ: setQ,
         }}
       >
         <BrowserRouter>
-          <Nav />
-          <Switch>
-            <Route path="/" exact component={Home} />
-            <Route path="/para" exact component={Para} />
-            <Route path="/question" exact component={Question} />
-            <Route path="/result" exact component={Result} />
-            <Route path="/model" exact component={Model} />
-          </Switch>
+          {model == null ? (
+            <div
+              className="h-screen flex flex-col 
+            items-center justify-center"
+            >
+              <div>Model Loading</div>
+              <Loader
+                type="Puff"
+                color="#EF4444
+              "
+                height={60}
+                width={60}
+              />
+            </div>
+          ) : (
+            <>
+              <Nav />
+              <Switch>
+                <Route path="/" exact component={Home} />
+                <Route path="/para" exact component={Para} />
+                <Route path="/question" exact component={Question} />
+                <Route path="/channel" exact component={Channel} />
+                <Route path="/result" exact component={Result} />
+                <Route path="/model" exact component={Model} />
+              </Switch>
+            </>
+          )}
         </BrowserRouter>
       </ModelContext.Provider>
     </>
